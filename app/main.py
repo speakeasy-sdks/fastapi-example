@@ -37,11 +37,6 @@ async def http_exception_handler(request, exc):
     return JSONResponse(error_response, status_code=exc.status_code if hasattr(exc, 'status_code') else 500)
 
 
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy"}
-
-
 # If using uvicorn directly in the file
 if __name__ == "__main__":
     import uvicorn
