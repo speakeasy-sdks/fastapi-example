@@ -1,14 +1,22 @@
 import logging
+from typing import List
 
 from fastapi import FastAPI
+from pydantic_settings import BaseSettings
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
 
-from app.config_vars import CLERK_AUTHORIZED_PARTIES
 from app.router import api_router
 
 logger = logging.getLogger(__name__)
 
+
+class Settings(BaseSettings):
+    clerk_api_secret_key: str
+    clerk_authorized_parties: List[str]
+
+
+settings = Settings()
 app = FastAPI(
     title="Clerk FastAPI example",
     description="Clerk FastAPI example",
@@ -18,7 +26,7 @@ app = FastAPI(
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=CLERK_AUTHORIZED_PARTIES.split(","),
+    allow_origins=settings.clerk_authorized_parties,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

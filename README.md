@@ -1,4 +1,4 @@
-1. Ensure `CLERK_API_SECRET_KEY` and `CLERK_AUTHORIZED_PARTIES` is set in your environment variables. `CLERK_AUTHORIZED_PARTIES` is a comma-separated list of allowed parties for example `http://localhost:5173`
+1. Ensure `CLERK_API_SECRET_KEY` and `CLERK_AUTHORIZED_PARTIES` is set in your environment variables. `CLERK_AUTHORIZED_PARTIES` is a JSON valid list  of allowed parties for example `["http://localhost:5173", "http://localhost:3000"]`
 
 2. Install dependencies with 
 ```commandline
