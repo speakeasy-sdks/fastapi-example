@@ -1,12 +1,8 @@
-import json
-from typing import Annotated
-from urllib.request import urlopen
-
+from clerk_backend_api import authenticate_request, AuthenticateRequestOptions
 from fastapi import HTTPException, Request
 from starlette import status
 
 from app.config_vars import CLERK_API_SECRET_KEY, CLERK_AUTHORIZED_PARTIES
-from clerk_backend_api import authenticate_request, AuthenticateRequestOptions
 
 
 async def authenticated_user(request: Request):
