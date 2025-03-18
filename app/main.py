@@ -22,7 +22,6 @@ class Settings(BaseSettings):
         return self.clerk_authorized_parties.split(",")
 
 
-
 settings = Settings()
 app = FastAPI(
     title="Clerk FastAPI example",
