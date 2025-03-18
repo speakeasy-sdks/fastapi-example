@@ -1,11 +1,10 @@
 import logging
-from typing import List, Annotated
+from typing import List
 
 from fastapi import FastAPI
 from pydantic_settings import BaseSettings
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
-from pydantic import Field, field_validator
 
 from app.router import api_router
 
@@ -46,7 +45,7 @@ async def http_exception_handler(request, exc):
     message = str(exc)
     logger.error(f"request: {request.url}, body {request.body}, exception: {message}")
     error_response = {
-        "detail": ["Server error"],  # this will make it compliant with standard FastAPI error definition
+        "detail": "Server error",
     }
     return JSONResponse(error_response, status_code=exc.status_code if hasattr(exc, 'status_code') else 500)
 
