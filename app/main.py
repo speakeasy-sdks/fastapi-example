@@ -1,11 +1,11 @@
 import logging
-from typing import List
+from typing import List, Annotated
 
 from fastapi import FastAPI
 from pydantic_settings import BaseSettings
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
-from pydantic import validator
+from pydantic import Field, field_validator
 
 from app.router import api_router
 
@@ -14,13 +14,13 @@ logger = logging.getLogger(__name__)
 
 class Settings(BaseSettings):
     clerk_api_secret_key: str
-    clerk_authorized_parties: List[str]
+    clerk_authorized_parties: str
 
-    @validator("clerk_authorized_parties", pre=True)
-    def parse_authorized_parties(cls, value):
-        if isinstance(value, str):
-            return [item.strip() for item in value.split(",")]
-        return value
+    # override property to return list from comma separated string
+    @property
+    def clerk_authorized_parties(self) -> List[str]:
+        return self.clerk_authorized_parties.split(",")
+
 
 
 settings = Settings()
